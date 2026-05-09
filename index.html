@@ -532,18 +532,12 @@
     }
 
     function orderWords(question) {
-      const baIndex = question.words.indexOf("把");
-      return baIndex >= 0 ? question.words.slice(baIndex + 1) : question.words;
+      return question.words;
     }
 
     function orderAnswer(question) {
       const words = orderWords(question);
       return words.join("");
-    }
-
-    function orderPrefix(question) {
-      const baIndex = question.words.indexOf("把");
-      return baIndex >= 0 ? question.words.slice(0, baIndex + 1) : [];
     }
 
     function renderChoice(question) {
@@ -573,19 +567,6 @@
 
     function renderPicked() {
       answerArea.innerHTML = "";
-      orderPrefix(currentQuestion()).forEach((word) => {
-        const fixed = document.createElement("span");
-        fixed.className = "fixed-word";
-        fixed.textContent = word;
-        answerArea.appendChild(fixed);
-      });
-      if (!pickedWords.length) {
-        const hint = document.createElement("span");
-        hint.className = "answer-text";
-        hint.textContent = "请点下面的词语组成句子";
-        answerArea.appendChild(hint);
-        return;
-      }
       pickedWords.forEach((word, index) => {
         const button = document.createElement("button");
         button.type = "button";
